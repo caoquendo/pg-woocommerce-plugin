@@ -25,6 +25,8 @@ if (!in_array($status_order, ['completed', 'cancelled', 'refunded', 'processing'
 
     if ($status_detail == 3) {
         $comments = __("Successful Payment", "pg_woocommerce");
+        $order->add_meta_data('nuvei_auth_code', $authorization_code);
+        $order->add_meta_data('nuvei_tx_id', $transaction_id);
         $order->update_status('processing');
         $order->add_order_note( __('The payment has been made successfully. Transaction Code: ', 'pg_woocommerce') . $transaction_id . __(' and its Authorization Code is: ', 'pg_woocommerce') . $authorization_code);
     } elseif (in_array($status_detail, [0, 1, 31, 35, 36])) {
